@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import math
 
 class DataParser:
     
@@ -24,11 +25,15 @@ class DataParser:
     
     def getHistory(self, impressionID):
         """return array of history vectors"""
-        news = np.array(self._behaviorDF.at[impressionID, 'history'].split(' '))
-        history_vectors = []
-        for i in range(0, news.size):
-            history_vectors.append(self._news_vectors[news[i]])
-        return np.array(history_vectors)
+        history = self._behaviorDF.at[impressionID, 'history']
+        if(math.isnan(history)):
+            return np.array([])
+        else:    
+            news = np.array(history.split(' '))
+            history_vectors = []
+            for i in range(0, news.size):
+                history_vectors.append(self._news_vectors[news[i]])
+            return np.array(history_vectors)
             
             
         
