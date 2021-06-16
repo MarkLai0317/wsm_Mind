@@ -7,7 +7,7 @@ data_path = './'
 news_info_file = 'newsinfo/news_embed.tsv'
 test_behaviors_file = os.path.join(data_path, 'test', r'behaviors.tsv')
 
-dp = DataParser.DataParser(news_info_file, test_behaviors_file, data_type = 'test')
+dp = DataParser.DataParser(news_info_file, test_behaviors_file)
 
 number_of_impressions = dp.impressionNum()
 score_list = []
@@ -18,7 +18,7 @@ for user_impression_ID in range(1, number_of_impressions):
   normalized_history = IR_functions.normalizeHistory(user_history , normalize_way = 'average')
   
   user_impression = dp.getImpression(user_impression_ID)
-  score = IR_functions.cosineSimilarity(normalized_history, user_impression)
+  score = IR_functions.cosineSimilarity(normalized_history, user_impression[0])
   score_list.append(score)
 
   answer = IR_functions.sortCandidateNews(score)

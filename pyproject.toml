@@ -6,9 +6,6 @@ authors = ["YJack0000 <<>>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-pandas = "^1.2.4"
-sklearn = "^0.0"
-tensorflow = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
 
