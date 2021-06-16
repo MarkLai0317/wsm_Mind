@@ -42,7 +42,7 @@ def normalizeHistory(historyVectors,normalizeWay='arithmetic'):
 	if(normalizeWay == "geometric"):
 		geometricMeanVector = np.array([])
 		for j in range(0,len(newVectors[0])):
-			total_product = 1;
+			total_product = 1
 			for i in range(0,len(newVectors)):
 				total_product *= newVectors[i][j]
 			geometricMean = pow(total_product,1/len(newVectors))
