@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
-import math
+
 
 class DataParser:
     
-    def __init__(self, news_path, behavior_path):
+    def __init__(self, behavior_path, news_path):
         """init all DF and prosuce news vectors dict"""
         
         self._behaviorDF = pd.DataFrame(pd.read_csv(behavior_path, index_col=0, sep = "\t",header=None))\
@@ -26,7 +26,7 @@ class DataParser:
     def getHistory(self, impressionID):
         """return array of history vectors"""
         history = self._behaviorDF.at[impressionID, 'history']
-        if(math.isnan(history)):
+        if(history != history):
             return np.array([])
         else:    
             news = np.array(history.split(' '))
@@ -37,7 +37,7 @@ class DataParser:
             
             
         
-    def getImpression(self, impressionID, data_type='valid'):
+    def getImpression(self, impressionID, tv):
         """
         tv indicate it's test data or valid data which include -1 -0.
         If its test please input 't' else 'v'.
@@ -47,7 +47,7 @@ class DataParser:
         """
         news = np.array(self._behaviorDF.at[impressionID, 'impressions'].split(' '))
         
-        if(data_type == 'test'):
+        if(tv == 't'):
             impression_vectors = []
             for i in range(0, news.size):
                 impression_vectors.append(self._news_vectors[news[i]])
