@@ -4,7 +4,7 @@ import numpy as np
 
 class DataParser:
     
-    def __init__(self, behavior_path, news_path):
+    def __init__(self, news_path, behavior_path):
         """init all DF and prosuce news vectors dict"""
         
         self._behaviorDF = pd.DataFrame(pd.read_csv(behavior_path, index_col=0, sep = "\t",header=None))\
