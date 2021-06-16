@@ -37,7 +37,7 @@ class DataParser:
             
             
         
-    def getImpression(self, impressionID, tv):
+    def getImpression(self, impressionID, data_type = "test"):
         """
         tv indicate it's test data or valid data which include -1 -0.
         If its test please input 't' else 'v'.
@@ -47,7 +47,7 @@ class DataParser:
         """
         news = np.array(self._behaviorDF.at[impressionID, 'impressions'].split(' '))
         
-        if(tv == 't'):
+        if(data_type == 'test'):
             impression_vectors = []
             for i in range(0, news.size):
                 impression_vectors.append(self._news_vectors[news[i]])
