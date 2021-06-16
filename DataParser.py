@@ -21,7 +21,7 @@ class DataParser:
         
     def impressionNum(self):
         """get the size of dataframe, return number of impressions"""
-        return len(self._newsDF.index)
+        return len(self._behaviorDF.index)
     
     def getHistory(self, impressionID):
         """return array of history vectors"""
