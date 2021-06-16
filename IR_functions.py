@@ -51,8 +51,12 @@ def normalizeHistory(historyVectors,normalizeWay='arithmetic'):
 	
 			
 def cosSimilarity(vect1, user_impressions):
-	
-	#scores = np.array([])
+
+"""
+vect1 is a 1D np.array; user_impressions is a 2D np.array that stores vector of impressions
+return a list of scores of each impression
+"""
+
   scores = []
   if vect1.size == 0:
     for i in range(0,len(user_impressions[0])):
@@ -62,12 +66,16 @@ def cosSimilarity(vect1, user_impressions):
   
   for vector in user_impressions:
 	  cosValue = np.dot(vect1,vector)/(np.linalg.norm(vect1)*np.linalg.norm(vector))
-		#scores = np.append(scores,cosValue)
 	  scores.append(cosValue)
   return scores 
 
 def sortCandidateNews(scores):
+
+	"""
+	returns a list of rankings of scores
+	"""
 	
+
 	index = [ i for i in range(1,len(scores)+1) ]
 	indexScore = dict(zip(index,scores))
 	sortedIndexScore={ k:v for k,v in sorted(indexScore.items(),key=lambda x:x[1],reverse=True)}
