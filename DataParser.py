@@ -39,8 +39,8 @@ class DataParser:
         
     def getImpression(self, impressionID, data_type = "test"):
         """
-        tv indicate it's test data or valid data which include -1 -0.
-        If its test please input 't' else 'v'.
+        data_type indicate it's test data or valid data which include -1 -0.
+        If its test please input 'test' else 'valid'.
         If it's t, return impression vectors
         else return (impression vectors, array of 1 0)
         
