@@ -11,7 +11,7 @@ class DataParser:
         .rename_axis(index='impressionID').rename(columns={1: 'userID', 2: 'time', 3: 'history', 4: 'impressions' })
         
         self._newsDF = pd.DataFrame(pd.read_csv(news_path, index_col=0, sep="\t", header=None))\
-        .rename_axis(index="newsID").rename(columns={1: 'vector'})
+        .rename_axis(index="newsID").rename(columns={1:'vector'})
         
         self._news_vectors = {}
         
@@ -58,9 +58,9 @@ class DataParser:
             impression_answer = []
             for i in range(0, news.size):
                 impression_vectors.append(self._news_vectors[news[i][0]])
-                impression_answer.append(news[i][1])
+                #impression_answer.append(news[i][1])
                 
-            return (np.array(impression_vectors), np.array(impression_answer))
+            return (np.array(impression_vectors))
         
     
     def _print_behaviorDF(self):
