@@ -41,6 +41,8 @@ print('training...')
 model = gensim.models.Doc2Vec(documents, dm=1, vector_size=100, window=8, min_count=5, workers=3)
 
 model.save('model/doc2vec_large_train.model')
+
+model.save('model/doc2vec_large_train.model')
 with open('../newsinfo/large_train_news.tsv', 'w') as f:
     for news_id, i in zip(news_df.index, range(0, news_df.index.size)):
         f.write(news_id + '\t' + ' '.join(map(str, model.docvecs[i])) + '\n')

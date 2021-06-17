@@ -50,19 +50,47 @@ def normalizeHistory(historyVectors,normalizeWay='arithmetic'):
 		return geometricMeanVector
 	
 			
-def cosSimilarity(vect1, user_impressions):
+def cosSimilarity(vect1, user_impressions, feedback = []):
 
 	"""
 	vect1 is a 1D np.array; user_impressions is a 2D np.array that stores vector of impressions
+	feedback = [0.3,0.2] then feedback value = 0.5*cosValue + 0.3*largestImp + 0.2*secondImp
 	return a np.array of scores of each impression
 	"""	
-	if vect1.size == 0:
+	
+	if sum(feedback) > 0.5 :
+		print("sum of feedback should better not be larger than 0.5")
+
+	if vect1.size == 0 :
 		scores = np.array([np.random.uniform(0,1) for i in range(0,len(user_impressions[0]))])
 		return scores
 				
 	cosValue = np.array([ np.dot(vect1,vector)/(np.linalg.norm(vect1)*np.linalg.norm(vector))\
-						for vector in user_impressions])
-	return cosValue 
+						  for vector in user_impressions])
+
+	#without relavance feedback or the feedback list is longer than user_impressions
+	if feedback == [] and len(user_impressions) >= len(feedback) :
+		return cosValue
+
+	
+	copyCosValue = [i for i in cosValue]
+	#find the n largest index 
+	largestNIndex = []
+	for i in range(0, len(feedback)): 
+		tempLargest = 0    
+		for j in range(len(copyCosValue)):     
+			if copyCosValue[j] > copyCosValue[tempLargest]:
+				tempLargest = j
+		copyCosValue[tempLargest] = -1
+		largestNIndex.append(tempLargest)
+
+	# feedbackValue = (1-sum(feedback))*cosValue + feedback[0]*user_impression +
+	#				  feedback[1]*user_impression
+	feedbackValue = np.multiply(cosValue,1-sum(feedback))
+	for i in range(0,len(feedback)):
+		feedbackValue = np.add(feedbackValue,np.multiply(user_impressions[largestNIndex[i]]\
+														,feedback[i]))
+
 
 def sortCandidateNews(scores):
 
@@ -77,6 +105,8 @@ def sortCandidateNews(scores):
 
 if __name__ == '__main__':
 	x = np.array([1,2,3])
-	print(cosSimilarity(x,np.array([[1,2,3],[4,5,6],[7,8,9]])))
+	y = np.array([[3,2,1],[4,5,6],[7,0,0]])
+	print(cosSimilarity(x,y))
+	print(cosSimilarity(x,y,feedback=[1,2]))
   #print(normalizeHistory(x))
-	print(sortCandidateNews(np.array([3,1,2])))
+#	print(sortCandidateNews(np.array([3,1,2])))
