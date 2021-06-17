@@ -5,7 +5,7 @@ from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 import gensim
 
-news_path = '/Users/yjack0827/Downloads/wsmMind/MINDsmall_valid/news.tsv'
+news_path = '/Users/yjack0827/Downloads/wsmMind/data/MINDsmall_dev/news.tsv'
 
 news_df = pd.DataFrame(pd.read_csv(news_path, index_col=0, sep="\t", header=None, usecols = [i for i in range(5)]))\
           .rename_axis(index="newsID").rename(columns={1: 'Category', 2: 'SubCategory', 3: 'title', 4: 'Abstract' })
