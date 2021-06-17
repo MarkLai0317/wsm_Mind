@@ -26,7 +26,7 @@ class DataParser:
     def getHistory(self, impressionID):
         """return array of history vectors"""
         history = self._behaviorDF.at[impressionID, 'history']
-        if(history != history):
+        if history != history :
             return np.array([])
         else:    
             news = np.array(history.split(' '))
