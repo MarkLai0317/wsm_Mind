@@ -62,7 +62,7 @@ def cosSimilarity(vect1, user_impressions, feedback = []):
 		print("sum of feedback should better not be larger than 0.5")
 
 	if vect1.size == 0 :
-		scores = np.array([np.random.uniform(0,1) for i in range(0,len(user_impressions[0]))])
+		scores = np.array([np.random.uniform(0,1) for i in range(0,len(user_impressions))])
 		return scores
 				
 	cosValue = np.array([ np.dot(vect1,vector)/(np.linalg.norm(vect1)*np.linalg.norm(vector))\
@@ -110,9 +110,13 @@ def sortCandidateNews(scores):
 	return list(result)
 
 if __name__ == '__main__':
+
 	x = np.array([1,2,3])
 	y = np.array([[3,2,1],[4,5,6],[7,0,0]])
+	"""
 	print(cosSimilarity(x,y))
 	print(cosSimilarity(x,y,feedback=[0.3,0.1]))
+	"""
+	print(cosSimilarity(np.array([]),y))
   #print(normalizeHistory(x))
 #	print(sortCandidateNews(np.array([3,1,2])))
