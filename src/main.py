@@ -13,7 +13,6 @@ test_behaviors_file = '../../MINDsmall_valid/small_behaviors.tsv'
 
 dp = DataParser.DataParser(news_info_file, test_behaviors_file)
 
-print(dp._behaviorDF)
 # In[ ]:
 
 
@@ -29,7 +28,7 @@ print("Number of Impression: ", number_of_impressions)
 
 count = 1
 for user_impression_ID in range(1, number_of_impressions+1):
-  print("Process (", count,end='\r')
+  print("Process ", count,end='\r')
   count += 1
 
   user_history = dp.getHistory(user_impression_ID)
