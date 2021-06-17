@@ -69,7 +69,7 @@ def cosSimilarity(vect1, user_impressions, feedback = []):
 						  for vector in user_impressions])
 
 	#without relavance feedback or the feedback list is longer than user_impressions
-	if feedback == [] and len(user_impressions) >= len(feedback) :
+	if feedback == [] and len(user_impressions) <= len(feedback) :
 		return cosValue
 
 	
@@ -84,12 +84,18 @@ def cosSimilarity(vect1, user_impressions, feedback = []):
 		copyCosValue[tempLargest] = -1
 		largestNIndex.append(tempLargest)
 
-	# feedbackValue = (1-sum(feedback))*cosValue + feedback[0]*user_impression +
+	# feedbackVect = (1-sum(feedback))*vect1 + feedback[0]*user_impression +
 	#				  feedback[1]*user_impression
-	feedbackValue = np.multiply(cosValue,1-sum(feedback))
+
+	feedbackVect = np.multiply(vect1,1-sum(feedback))
 	for i in range(0,len(feedback)):
-		feedbackValue = np.add(feedbackValue,np.multiply(user_impressions[largestNIndex[i]]\
+		feedbackVect = np.add(feedbackVect,np.multiply(user_impressions[largestNIndex[i]]\
 														,feedback[i]))
+	
+	feedbackValue = np.array([np.dot(feedbackVect,vector)/(np.linalg.norm(feedbackVect)\
+							*np.linalg.norm(vector))  for vector in user_impressions])
+
+	return feedbackValue
 
 
 def sortCandidateNews(scores):
@@ -107,6 +113,6 @@ if __name__ == '__main__':
 	x = np.array([1,2,3])
 	y = np.array([[3,2,1],[4,5,6],[7,0,0]])
 	print(cosSimilarity(x,y))
-	print(cosSimilarity(x,y,feedback=[1,2]))
+	print(cosSimilarity(x,y,feedback=[0.3,0.1]))
   #print(normalizeHistory(x))
 #	print(sortCandidateNews(np.array([3,1,2])))
