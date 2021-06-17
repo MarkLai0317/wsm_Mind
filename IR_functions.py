@@ -54,7 +54,7 @@ def cosSimilarity(vect1, user_impressions):
 
 	"""
 	vect1 is a 1D np.array; user_impressions is a 2D np.array that stores vector of impressions
-	return a list of scores of each impression
+	return a np.array of scores of each impression
 	"""	
 	if vect1.size == 0:
 		scores = np.array([np.random.uniform(0,1) for i in range(0,len(user_impressions[0]))])
@@ -70,11 +70,13 @@ def sortCandidateNews(scores):
 	returns a list of rankings of scores
 	"""
 	index = np.argsort(scores)[::-1]
-	result = np.array([])
-	return index
+	result = np.empty(len(scores),int)
+	for i in range(0,len(scores)):
+		result[index[i]] = i+1
+	return list(result)
 
 if __name__ == '__main__':
 	x = np.array([1,2,3])
 	print(cosSimilarity(x,np.array([[1,2,3],[4,5,6],[7,8,9]])))
   #print(normalizeHistory(x))
-	print(sortCandidateNews(np.array([8,4,2,1,10])))
+	print(sortCandidateNews(np.array([3,1,2])))
