@@ -130,11 +130,7 @@ dmypy.json
 .vscode
 .DS_Store
 
-newsinfo
-test
-result
-model
-
-data
-
-MINDsmall_train
+newsinfo/
+result/
+model/
+data/
