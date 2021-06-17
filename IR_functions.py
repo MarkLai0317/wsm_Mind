@@ -52,43 +52,29 @@ def normalizeHistory(historyVectors,normalizeWay='arithmetic'):
 			
 def cosSimilarity(vect1, user_impressions):
 
-"""
-vect1 is a 1D np.array; user_impressions is a 2D np.array that stores vector of impressions
-return a list of scores of each impression
-"""
-
-  scores = []
-  if vect1.size == 0:
-    for i in range(0,len(user_impressions[0])):
-      scores.append(random.uniform(0,1))
-  
-    return scores
-  
-  for vector in user_impressions:
-	  cosValue = np.dot(vect1,vector)/(np.linalg.norm(vect1)*np.linalg.norm(vector))
-	  scores.append(cosValue)
-  return scores 
+	"""
+	vect1 is a 1D np.array; user_impressions is a 2D np.array that stores vector of impressions
+	return a list of scores of each impression
+	"""	
+	if vect1.size == 0:
+		scores = np.array([np.random.uniform(0,1) for i in range(0,len(user_impressions[0]))])
+		return scores
+				
+	cosValue = np.array([ np.dot(vect1,vector)/(np.linalg.norm(vect1)*np.linalg.norm(vector))\
+						for vector in user_impressions])
+	return cosValue 
 
 def sortCandidateNews(scores):
 
 	"""
 	returns a list of rankings of scores
 	"""
-	
+	index = np.argsort(scores)[::-1]
+	result = np.array([])
+	return index
 
-	index = [ i for i in range(1,len(scores)+1) ]
-	indexScore = dict(zip(index,scores))
-	sortedIndexScore={ k:v for k,v in sorted(indexScore.items(),key=lambda x:x[1],reverse=True)}
-	order = list(sortedIndexScore)
-	for i in range(0,len(order)):
-		indexScore[order[i]] = i+1
-	
-	result = list(indexScore.values())
-	return result
-
-	
 if __name__ == '__main__':
-  x = np.array([])
-  print(cosSimilarity(x,np.array([[1,2,3],[4,5,6],[7,8,9]])))
-  print(normalizeHistory(x))
-  print(sortCandidateNews(np.array([0.4,0.1,0.2])))
+	x = np.array([1,2,3])
+	print(cosSimilarity(x,np.array([[1,2,3],[4,5,6],[7,8,9]])))
+  #print(normalizeHistory(x))
+	print(sortCandidateNews(np.array([8,4,2,1,10])))
