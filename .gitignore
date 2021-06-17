@@ -130,7 +130,9 @@ dmypy.json
 .vscode
 .DS_Store
 
+
 newsinfo/
 result/
 model/
 data/
+
